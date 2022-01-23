@@ -3,10 +3,10 @@ import Screen from "../components/Screen";
 import Header from "../components/Header";
 import Main from "../components/Main";
 
-function Home() {
+function Home({ navigation }) {
   return (
     <Screen>
-      <Header />
+      <Header navigation={navigation} />
       <Main />
     </Screen>
   );

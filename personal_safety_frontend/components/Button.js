@@ -1,8 +1,12 @@
 import { TouchableHighlight, Text, StyleSheet } from "react-native";
 
-function Button() {
+function Button({ onPress }) {
   return (
-    <TouchableHighlight style={styles.container}>
+    <TouchableHighlight
+      style={styles.container}
+      underlayColor="#045423"
+      onPress={onPress}
+    >
       <Text style={styles.text}>Checkin</Text>
     </TouchableHighlight>
   );

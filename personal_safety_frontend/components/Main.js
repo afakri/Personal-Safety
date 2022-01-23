@@ -1,16 +1,21 @@
 import { View, StyleSheet, Text } from "react-native";
 import Button from "./Button";
+import { useState } from "react";
+
 function Main() {
+  const [checked, setChecked] = useState(false);
+
   return (
     <View style={styles.page}>
       <View style={styles.container}>
         <Text style={styles.title}>Welcome, Sussan! </Text>
         <Text style={styles.description}>
-          You have not yet checked in today.
+          {checked
+            ? `You are checked-in.\nWe will keep you posted!`
+            : `You have not yet checked-in today. \nTap the button to checkin now!`}
         </Text>
-        <Text style={styles.description}> Tap the button to checkin now!</Text>
       </View>
-      <Button />
+      {checked ? <></> : <Button onPress={setChecked} />}
     </View>
   );
 }
@@ -27,6 +32,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 100,
   },
   title: {
     fontSize: 30,
@@ -34,6 +40,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 20,
+    textAlign: "center",
   },
   checkin: {
     backgroundColor: "blue",
