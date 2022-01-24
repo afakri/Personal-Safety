@@ -1,9 +1,27 @@
 import { View, StyleSheet, Text } from "react-native";
 import Button from "./Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Main() {
   const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (checked) {
+      const timer = setTimeout(() => {
+        console.log("10sec has passed! checkin now");
+        setChecked(false);
+      }, 10000);
+
+      return () => clearTimeout(timer);
+    }
+    const interval = setInterval(() => {
+      console.log("Not Checked in ");
+      if (checked) {
+        return () => clearInterval(interval);
+      }
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [checked]);
 
   return (
     <View style={styles.page}>
