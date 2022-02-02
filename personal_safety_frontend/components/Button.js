@@ -1,11 +1,13 @@
 import { TouchableHighlight, Text, StyleSheet } from "react-native";
+import { connect } from "react-redux";
+import { setChecked } from "../actions/Checked";
 
-function Button({ onPress }) {
+function Button(props) {
   return (
     <TouchableHighlight
       style={styles.container}
       underlayColor="#045423"
-      onPress={onPress}
+      onPress={() => props.setChecked(true)}
     >
       <Text style={styles.text}>Checkin</Text>
     </TouchableHighlight>
@@ -23,4 +25,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 });
-export default Button;
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setChecked: (checked) => dispatch(setChecked(checked)),
+  };
+}
+export default connect(null, mapDispatchToProps)(Button);

@@ -1,14 +1,15 @@
 import { View, StyleSheet, Text } from "react-native";
 import Button from "./Button";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
+import { setChecked } from "../actions/Checked";
 
 function Main(props) {
   useEffect(() => {
     if (props.checked) {
       const timer = setTimeout(() => {
         console.log("10sec has passed! checkin now");
-        props.setNotChecked();
+        props.setChecked(false);
       }, 10000);
 
       return () => clearTimeout(timer);
@@ -32,7 +33,7 @@ function Main(props) {
             : `You have not yet checked-in today. \nTap the button to checkin now!`}
         </Text>
       </View>
-      {props.checked ? <></> : <Button onPress={props.setChecked} />}
+      {props.checked ? <></> : <Button />}
     </View>
   );
 }
@@ -67,14 +68,13 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    checked: state.checked,
+    checked: state.checked.val,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setChecked: () => dispatch({ type: "SET_CHECKED" }),
-    setNotChecked: () => dispatch({ type: "SET_NOT_CHECKED" }),
+    setChecked: (checked) => dispatch(setChecked(checked)),
   };
 }
 

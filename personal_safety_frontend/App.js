@@ -7,23 +7,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
+import { combineReducers } from "redux";
+import reducer from "./reducers/RootReducer";
 
 const Stack = createNativeStackNavigator();
-const initialState = {
-  checked: false,
-};
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "SET_CHECKED":
-      return { checked: true };
-      break;
-    case "SET_NOT_CHECKED":
-      return { checked: false };
-      break;
-  }
 
-  return state;
-};
 const store = createStore(reducer);
 
 export default function App() {
@@ -50,7 +38,7 @@ export default function App() {
               name="Friends"
               component={Friends}
               options={{
-                animationEnabled: true,
+                animationEnabled: false,
               }}
             />
             <Stack.Screen
