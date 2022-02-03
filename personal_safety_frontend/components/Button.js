@@ -9,7 +9,7 @@ function Button(props) {
       underlayColor="#045423"
       onPress={() => props.setChecked(true)}
     >
-      <Text style={styles.text}>Checkin</Text>
+      <Text style={styles.text}>{props.text}</Text>
     </TouchableHighlight>
   );
 }

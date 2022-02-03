@@ -2,6 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Home from "./screens/Home";
 import Friends from "./screens/Friends";
+import Auth from "./screens/Authentication_page";
+
 import Profile from "./screens/Profile";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -14,6 +16,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { getProfile } from "./actions/Profile";
 import Store from "./Store";
+import SignUp from "./screens/SignUp";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,8 +37,15 @@ function Index(props) {
             headerShown: false,
             animationEnabled: false,
           }}
-          initialRouteName="Home"
+          initialRouteName="Authentication"
         >
+          <Stack.Screen
+            name="Authentication"
+            component={Auth}
+            options={{
+              animationEnabled: false,
+            }}
+          />
           <Stack.Screen
             name="Home"
             component={Home}
@@ -43,7 +53,13 @@ function Index(props) {
               animationEnabled: false,
             }}
           />
-
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{
+              animationEnabled: false,
+            }}
+          />
           <Stack.Screen
             name="Friends"
             component={Friends}
