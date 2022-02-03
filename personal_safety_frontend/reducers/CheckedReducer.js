@@ -5,7 +5,7 @@ const initialState = {
 function CheckedReducer(state = initialState, action) {
   switch (action.type) {
     case "SET_CHECKED":
-      return { val: action.checked };
+      return { ...state, val: action.checked };
     default:
       return state;
   }
