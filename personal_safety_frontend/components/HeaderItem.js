@@ -1,4 +1,5 @@
-import { View, StyleSheet, TouchableHighlight, Text } from "react-native";
+import { View, StyleSheet, TouchableHighlight } from "react-native";
+import MyText from "./MyText";
 
 function HeaderItem({ text, onPress }) {
   return (
@@ -7,7 +8,7 @@ function HeaderItem({ text, onPress }) {
       onPress={onPress}
       style={styles.container}
     >
-      <Text style={styles.item}>{text}</Text>
+      <MyText>{text}</MyText>
     </TouchableHighlight>
   );
 }
@@ -16,9 +17,6 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     padding: 10,
-  },
-  item: {
-    fontSize: 30,
   },
 });
 

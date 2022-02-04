@@ -1,6 +1,7 @@
 import { TouchableHighlight, Text, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { setChecked } from "../actions/Checked";
+import MyText from "./MyText";
 
 function Button(props) {
   return (
@@ -9,7 +10,7 @@ function Button(props) {
       underlayColor="#045423"
       onPress={() => props.setChecked(true)}
     >
-      <Text style={styles.text}>{props.text}</Text>
+      <MyText>{props.text}</MyText>
     </TouchableHighlight>
   );
 }
@@ -20,9 +21,6 @@ const styles = StyleSheet.create({
     width: 200,
     alignItems: "center",
     borderRadius: 30,
-  },
-  text: {
-    fontSize: 30,
   },
 });
 

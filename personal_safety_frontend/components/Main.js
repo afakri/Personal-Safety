@@ -1,8 +1,9 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Button from "./Button";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { setChecked } from "../actions/Checked";
+import MyText from "./MyText";
 
 function Main(props) {
   useEffect(() => {
@@ -26,14 +27,14 @@ function Main(props) {
   return (
     <View style={styles.page}>
       <View style={styles.container}>
-        <Text style={styles.title}>Welcome, Sussan! </Text>
-        <Text style={styles.description}>
+        <MyText style={styles.title}>Welcome, Sussan! </MyText>
+        <MyText style={styles.description}>
           {props.checked
             ? `You are checked-in.\nWe will keep you posted!`
             : `You have not yet checked-in today. \nTap the button to checkin now!`}
-        </Text>
+        </MyText>
       </View>
-      {props.checked ? <></> : <Button text={"Check-in"}/>}
+      {props.checked ? <></> : <Button text="Check in" />}
     </View>
   );
 }
@@ -53,7 +54,6 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   title: {
-    fontSize: 30,
     padding: 30,
   },
   description: {

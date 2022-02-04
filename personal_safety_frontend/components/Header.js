@@ -1,5 +1,6 @@
 import { View, TouchableHighlight, StyleSheet, Text } from "react-native";
 import HeaderItem from "./HeaderItem";
+import AccModal from "./AccModal";
 function Header({ navigation }) {
   return (
     <View style={styles.container}>
@@ -21,6 +22,7 @@ function Header({ navigation }) {
           navigation.navigate("Profile");
         }}
       />
+      <AccModal />
     </View>
   );
 }

@@ -1,34 +1,43 @@
 import { Modal, Text, View, StyleSheet, Pressable } from "react-native";
 import { BlurView } from "expo-blur";
 import { useState } from "react";
+import { Icon } from "react-native-elements";
+import { increaseFont, decreaseFont } from "../actions/FontSize";
+import { useDispatch } from "react-redux";
+import MyText from "./MyText";
+
 function AccModal() {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   return (
     <>
       <Modal visible={open} transparent>
         <BlurView style={styles.container}>
           <View style={styles.content}>
-            <Pressable style={styles.button}>
-              <Text style={styles.buttonText}>Increase Font</Text>
+            <Pressable
+              style={styles.button}
+              onPress={() => dispatch(increaseFont())}
+            >
+              <MyText style={styles.buttonText}>Increase Font</MyText>
             </Pressable>
-            <Pressable style={styles.button}>
-              <Text style={styles.buttonText}>Decrease Font</Text>
+            <Pressable
+              style={styles.button}
+              onPress={() => dispatch(decreaseFont())}
+            >
+              <MyText style={styles.buttonText}>Decrease Font</MyText>
             </Pressable>
           </View>
           <Pressable
             style={[styles.button, styles.closeButton]}
             onPress={() => setOpen(false)}
           >
-            <Text style={styles.buttonText}>Close</Text>
+            <MyText style={[styles.buttonText]}>Close</MyText>
           </Pressable>
         </BlurView>
       </Modal>
-      <Pressable
-        style={[styles.button, styles.accButton]}
-        onPress={() => setOpen(true)}
-      >
-        <Text style={styles.buttonText}>Accessibility</Text>
+      <Pressable style={styles.accButton} onPress={() => setOpen(true)}>
+        <Icon name="universal-access" type="font-awesome" size={50} />
       </Pressable>
     </>
   );
@@ -56,17 +65,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
   },
-  buttonText: { color: "white", fontSize: 20 },
+  buttonText: { color: "white" },
   closeButton: {
     position: "absolute",
     bottom: "5%",
     width: "30%",
   },
   accButton: {
-    position: "absolute",
-    bottom: "5%",
-    left: "5%",
-    width: "30%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

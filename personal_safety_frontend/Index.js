@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Home from "./screens/Home";
 import Friends from "./screens/Friends";
-import Auth from "./screens/Authentication_page";
+import SignIn from "./screens/SignIn";
 
 import Profile from "./screens/Profile";
 import { NavigationContainer } from "@react-navigation/native";
@@ -27,7 +27,6 @@ function Index(props) {
   }, []);
 
   const test = useSelector((state) => state);
-  console.log(test);
 
   return (
     <>
@@ -37,11 +36,11 @@ function Index(props) {
             headerShown: false,
             animationEnabled: false,
           }}
-          initialRouteName="Authentication"
+          initialRouteName="SignIn"
         >
           <Stack.Screen
-            name="Authentication"
-            component={Auth}
+            name="SignIn"
+            component={SignIn}
             options={{
               animationEnabled: false,
             }}

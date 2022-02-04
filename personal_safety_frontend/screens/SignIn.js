@@ -13,27 +13,15 @@ import Header from "../components/Header";
 import Main from "../components/Main";
 import React, { Component, Fragment } from "react";
 
-function SignUp({ navigation }) {
+function SignIn({ navigation }) {
   return (
     <Screen>
       <Text style={styles.Title}>Personal safety </Text>
       <SafeAreaView style={styles.div}>
-        <Text style={styles.baseText}>Full name: </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your full name"
-          keyboardType="numeric"
-        />
         <Text style={styles.baseText}>Email: </Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter your email address"
-          keyboardType="numeric"
-        />
-        <Text style={styles.baseText}>username: </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your username"
+          placeholder="Enter your email"
           keyboardType="numeric"
         />
         <Text style={styles.baseText}>Password: </Text>
@@ -42,29 +30,23 @@ function SignUp({ navigation }) {
           placeholder="Enter your password"
           keyboardType="numeric"
         />
-        <Text style={styles.baseText}>Confirm password: </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Re-enter your password"
-          keyboardType="numeric"
-        />
         <TouchableHighlight
           style={styles.container}
           onPress={() => {
             navigation.navigate("Home");
           }}
         >
-          <Text style={styles.butTxt}>Sign up</Text>
+          <Text style={styles.butTxt}>Log in</Text>
         </TouchableHighlight>
         <Button
-          title="Log in"
+          title="Sign up"
+          onPress={() => {
+            navigation.navigate("SignUp");
+          }}
           buttonStyle={{
             borderColor: "rgba(78, 116, 289, 1)",
           }}
           type="outline"
-          onPress={() => {
-            navigation.navigate("SignIn");
-          }}
           titleStyle={{ color: "rgba(78, 116, 289, 1)" }}
           containerStyle={{
             width: 200,
@@ -81,7 +63,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     width: 200,
-    marginTop: 10,
+    marginTop: 20,
     backgroundColor: "#D7FFFD",
     borderWidth: 1,
     borderColor: "black",
@@ -115,7 +97,7 @@ const styles = StyleSheet.create({
   },
 
   div: {
-    marginTop: "5%",
+    marginTop: "25%",
   },
   Title: {
     fontSize: 18,
@@ -130,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUp;
+export default SignIn;
