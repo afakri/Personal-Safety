@@ -33,7 +33,7 @@ function Main(props) {
             : `You have not yet checked-in today. \nTap the button to checkin now!`}
         </Text>
       </View>
-      {props.checked ? <></> : <Button />}
+      {props.checked ? <></> : <Button text={"Check-in"}/>}
     </View>
   );
 }
