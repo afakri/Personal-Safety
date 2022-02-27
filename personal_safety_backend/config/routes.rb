@@ -3,8 +3,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users, param: :email
+      resources :users, param: :phone_number
       resources :checkins, param: :checkin_name
+      get "/reminder/:phone_number", to: "users#schedule_job"
     end
   end
 

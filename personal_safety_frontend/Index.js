@@ -3,31 +3,26 @@ import { StyleSheet, Text, View } from "react-native";
 import Home from "./screens/Home";
 import Friends from "./screens/Friends";
 import SignIn from "./screens/SignIn";
+import SignUp from "./screens/SignUp";
 
 import Profile from "./screens/Profile";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
-import reducer from "./reducers/RootReducer";
-import thunk from "redux-thunk";
-import { useEffect } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { getProfile } from "./actions/Profile";
-import Store from "./Store";
-import SignUp from "./screens/SignUp";
+
+import { getToken } from "./actions/Notifications";
+import { useDispatch, useStore } from "react-redux";
+import { useEffect } from "react";
 
 const Stack = createNativeStackNavigator();
 
 function Index(props) {
+  const store = useStore();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getProfile());
+    console.log(store.getState().notification);
+    dispatch(getToken());
   }, []);
-
-  const test = useSelector((state) => state);
-
   return (
     <>
       <NavigationContainer>
@@ -80,12 +75,4 @@ function Index(props) {
 }
 const styles = StyleSheet.create({});
 
-function mapStateToProps(state) {
-  return {
-    user: state.profile.user,
-    loading: state.profile.loading,
-    error: state.profile.error,
-  };
-}
-
-export default connect(mapStateToProps)(Index);
+export default Index;

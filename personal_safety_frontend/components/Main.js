@@ -4,14 +4,24 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { setChecked } from "../actions/Checked";
 import MyText from "./MyText";
+import axios from "axios";
 
 function Main(props) {
   useEffect(() => {
+    const sendPush = async () => {
+      let res = await axios.get(
+        "https://notification-app.loca.lt/api/v1/reminder/0631005047"
+      );
+      console.log("push notif sent");
+    };
     if (props.checked) {
       const timer = setTimeout(() => {
-        console.log("10sec has passed! checkin now");
+        console.log("30sec has passed! checkin now");
+        sendPush()
+          .then(console.log("Notif sent"))
+          .catch((e) => console.log(e));
         props.setChecked(false);
-      }, 10000);
+      }, 30000);
 
       return () => clearTimeout(timer);
     }
