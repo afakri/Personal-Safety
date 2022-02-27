@@ -10,17 +10,19 @@ function Button(props) {
       underlayColor="#045423"
       onPress={() => props.setChecked(true)}
     >
-      <MyText>{props.text}</MyText>
+      <MyText style={styles.text}>{props.text}</MyText>
     </TouchableHighlight>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    justifyContent: "center",
     backgroundColor: "green",
     width: 200,
     alignItems: "center",
     borderRadius: 30,
+    height: 50,
   },
 });
 

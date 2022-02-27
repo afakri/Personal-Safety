@@ -8,108 +8,90 @@ import {
   Button,
   TouchableHighlight,
 } from "react-native";
+import Input from "../components/Input";
 import Screen from "../components/Screen";
-import Header from "../components/Header";
-import Main from "../components/Main";
 import React, { Component, Fragment } from "react";
 
 function SignIn({ navigation }) {
   return (
-    <Screen>
-      <Text style={styles.Title}>Personal safety </Text>
-      <SafeAreaView style={styles.div}>
-        <Text style={styles.baseText}>Email: </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your email"
-          keyboardType="numeric"
-        />
-        <Text style={styles.baseText}>Password: </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your password"
-          keyboardType="numeric"
-        />
+    <Screen style={{ backgroundColor: "black" }}>
+      <Text style={styles.Title}>Log In </Text>
+      <View style={styles.container}>
+        <View style={styles.inputs}>
+          <Input title="Email" placeHolder="Enter your email" />
+          <Input title="Password" placeHolder="Enter your password" />
+        </View>
+
         <TouchableHighlight
-          style={styles.container}
+          style={styles.button}
           onPress={() => {
             navigation.navigate("Home");
           }}
         >
-          <Text style={styles.butTxt}>Log in</Text>
+          <Text style={styles.buttonText}>Log in</Text>
         </TouchableHighlight>
-        <Button
-          title="Sign up"
-          onPress={() => {
-            navigation.navigate("SignUp");
-          }}
-          buttonStyle={{
-            borderColor: "rgba(78, 116, 289, 1)",
-          }}
-          type="outline"
-          titleStyle={{ color: "rgba(78, 116, 289, 1)" }}
-          containerStyle={{
-            width: 200,
-            marginHorizontal: 50,
-            marginVertical: 10,
-          }}
-        />
-      </SafeAreaView>
+        <View style={styles.signUp}>
+          <Text style={styles.signUpText}>Dont have an account? </Text>
+          <Button
+            title="Sign up"
+            onPress={() => {
+              navigation.navigate("SignUp");
+            }}
+          />
+        </View>
+      </View>
     </Screen>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 10,
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+  },
+  inputs: {
+    alignItems: "center",
+    width: "100%",
+    marginTop: "25%",
+    marginBottom: "8%",
+  },
+  button: {
     padding: 10,
     width: 200,
     marginTop: 20,
-    backgroundColor: "#D7FFFD",
+    width: 350,
+    backgroundColor: "#0233f5",
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: "#0233f5",
     marginLeft: "auto",
     marginRight: "auto",
-    borderRadius: 5,
+    borderRadius: 15,
     alignItems: "center",
   },
   item: {
     fontSize: 30,
   },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    paddingLeft: 10,
-    width: "80%",
-    marginLeft: "auto",
-    marginRight: "auto",
-    fontFamily: "Cochin",
-    fontSize: 20,
-  },
+
   baseText: {
     marginLeft: "10%",
-    fontFamily: "Cochin",
+    color: "white",
     fontSize: 20,
   },
-  butTxt: {
-    fontFamily: "Cochin",
+  buttonText: {
     fontSize: 20,
+    color: "white",
   },
 
-  div: {
-    marginTop: "25%",
-  },
   Title: {
-    fontSize: 18,
+    fontSize: 50,
+    color: "white",
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 30,
     fontWeight: "bold",
-    borderColor: "black",
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 20,
   },
+  signUp: { flexDirection: "row", alignItems: "center" },
+  signUpText: { color: "white", fontSize: 17 },
 });
 
 export default SignIn;

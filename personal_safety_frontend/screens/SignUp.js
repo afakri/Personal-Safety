@@ -9,125 +9,91 @@ import {
   TouchableHighlight,
 } from "react-native";
 import Screen from "../components/Screen";
-import Header from "../components/Header";
-import Main from "../components/Main";
+import Input from "../components/Input";
 import React, { Component, Fragment } from "react";
 
 function SignUp({ navigation }) {
   return (
-    <Screen>
-      <Text style={styles.Title}>Personal safety </Text>
-      <SafeAreaView style={styles.div}>
-        <Text style={styles.baseText}>Full name: </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your full name"
-          keyboardType="numeric"
-        />
-        <Text style={styles.baseText}>Email: </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your email address"
-          keyboardType="numeric"
-        />
-        <Text style={styles.baseText}>username: </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your username"
-          keyboardType="numeric"
-        />
-        <Text style={styles.baseText}>Password: </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your password"
-          keyboardType="numeric"
-        />
-        <Text style={styles.baseText}>Confirm password: </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Re-enter your password"
-          keyboardType="numeric"
-        />
+    <Screen style={{ backgroundColor: "black" }}>
+      <Text style={styles.Title}>Sign Up </Text>
+      <View style={styles.container}>
+        <View style={styles.inputs}>
+          <Input title="First Name" placeHolder="Enter your first name" />
+          <Input title="Last Name" placeHolder="Enter your last name" />
+          <Input title="Email " placeHolder="example@example.com" />
+          <Input title="Phone Number" placeHolder="(XXX)-XXX-XXX" />
+          <Input title="Password" placeHolder="Pick a strong password" />
+        </View>
+
         <TouchableHighlight
-          style={styles.container}
+          style={styles.button}
           onPress={() => {
             navigation.navigate("Home");
           }}
         >
-          <Text style={styles.butTxt}>Sign up</Text>
+          <Text style={styles.buttonText}>Sign up</Text>
         </TouchableHighlight>
-        <Button
-          title="Log in"
-          buttonStyle={{
-            borderColor: "rgba(78, 116, 289, 1)",
-          }}
-          type="outline"
-          onPress={() => {
-            navigation.navigate("SignIn");
-          }}
-          titleStyle={{ color: "rgba(78, 116, 289, 1)" }}
-          containerStyle={{
-            width: 200,
-            marginHorizontal: 50,
-            marginVertical: 10,
-          }}
-        />
-      </SafeAreaView>
+        <View style={styles.signUp}>
+          <Text style={styles.signUpText}>Already have an account? </Text>
+          <Button
+            title="Log in"
+            onPress={() => {
+              navigation.navigate("SignIn");
+            }}
+          />
+        </View>
+      </View>
     </Screen>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 10,
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+  },
+  inputs: {
+    alignItems: "center",
+    width: "100%",
+    marginTop: "5%",
+  },
+  button: {
     padding: 10,
     width: 200,
-    marginTop: 10,
-    backgroundColor: "#D7FFFD",
+    marginTop: 20,
+    width: 350,
+    backgroundColor: "#0233f5",
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: "#0233f5",
     marginLeft: "auto",
     marginRight: "auto",
-    borderRadius: 5,
+    borderRadius: 15,
     alignItems: "center",
   },
   item: {
     fontSize: 30,
   },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    paddingLeft: 10,
-    width: "80%",
-    marginLeft: "auto",
-    marginRight: "auto",
-    fontFamily: "Cochin",
-    fontSize: 20,
-  },
+
   baseText: {
     marginLeft: "10%",
-    fontFamily: "Cochin",
+    color: "white",
     fontSize: 20,
   },
-  butTxt: {
-    fontFamily: "Cochin",
+  buttonText: {
     fontSize: 20,
+    color: "white",
   },
 
-  div: {
-    marginTop: "5%",
-  },
   Title: {
-    fontSize: 18,
+    fontSize: 50,
+    color: "white",
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 30,
     fontWeight: "bold",
-    borderColor: "black",
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 20,
   },
+  signUp: { flexDirection: "row", alignItems: "center" },
+  signUpText: { color: "white", fontSize: 17 },
 });
 
 export default SignUp;
