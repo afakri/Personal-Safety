@@ -2,31 +2,81 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
-  SafeAreaView,
-  ScrollView,
   Button,
   TouchableHighlight,
 } from "react-native";
+
+import { useForm, Controller } from "react-hook-form";
+
 import Input from "../components/Input";
 import Screen from "../components/Screen";
-import React, { Component, Fragment } from "react";
 
 function SignIn({ navigation }) {
+  const EMAIL_REGEX =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data, "data");
+    navigation.navigate("Home");
+  };
   return (
     <Screen style={{ backgroundColor: "black" }}>
       <Text style={styles.Title}>Log In </Text>
       <View style={styles.container}>
         <View style={styles.inputs}>
-          <Input title="Email" placeHolder="Enter your email" />
-          <Input title="Password" placeHolder="Enter your password" />
+          <Controller
+            name="Email"
+            defaultValue=""
+            control={control}
+            rules={{
+              required: {
+                value: true,
+                message: "Email is required!",
+              },
+              pattern: {
+                value: EMAIL_REGEX,
+                message: "Not a valid email",
+              },
+            }}
+            render={({ field: { onChange, value } }) => (
+              <Input
+                error={errors.Email}
+                errorText={errors?.Email?.message}
+                onChangeText={(text) => onChange(text)}
+                value={value}
+                placeholder="Enter your email"
+                title="Email"
+              />
+            )}
+          />
+          <Controller
+            name="Password"
+            defaultValue=""
+            control={control}
+            rules={{
+              required: { value: true, message: "Password is required!" },
+            }}
+            render={({ field: { onChange, value } }) => (
+              <Input
+                error={errors.Password}
+                errorText={errors?.Password?.message}
+                onChangeText={(text) => onChange(text)}
+                value={value}
+                placeholder="Enter your password"
+                title="Password"
+              />
+            )}
+          />
         </View>
 
         <TouchableHighlight
           style={styles.button}
-          onPress={() => {
-            navigation.navigate("Home");
-          }}
+          onPress={handleSubmit(onSubmit)}
         >
           <Text style={styles.buttonText}>Log in</Text>
         </TouchableHighlight>
@@ -52,13 +102,13 @@ const styles = StyleSheet.create({
   inputs: {
     alignItems: "center",
     width: "100%",
-    marginTop: "25%",
-    marginBottom: "8%",
+    marginTop: "40%",
+    marginBottom: "45%",
   },
   button: {
     padding: 10,
     width: 200,
-    marginTop: 20,
+
     width: 350,
     backgroundColor: "#0233f5",
     borderWidth: 1,
@@ -87,7 +137,7 @@ const styles = StyleSheet.create({
     color: "white",
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 30,
+
     fontWeight: "bold",
   },
   signUp: { flexDirection: "row", alignItems: "center" },

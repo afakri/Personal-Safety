@@ -7,17 +7,19 @@ function Input(props) {
     <View style={styles.container}>
       <Text style={styles.title}>{props.title} </Text>
       <TextInput
-        style={styles.input}
-        placeholder={props.placeHolder}
-        keyboardType="numeric"
+        style={[styles.input, props.error && styles.error]}
         placeholderTextColor="grey"
+        {...props}
       />
+      {props.errorText && (
+        <Text style={styles.errorText}>{props.errorText}</Text>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: { marginBottom: 15 },
   title: {
     fontSize: 22,
     color: "white",
@@ -33,7 +35,12 @@ const styles = StyleSheet.create({
     borderColor: "#0233f5",
     fontSize: 20,
     color: "white",
-    marginBottom: 25,
+  },
+  error: {
+    borderColor: "#b80719",
+  },
+  errorText: {
+    color: "#b80719",
   },
 });
 
