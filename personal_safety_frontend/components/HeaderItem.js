@@ -1,14 +1,15 @@
 import { View, StyleSheet, TouchableHighlight } from "react-native";
 import MyText from "./MyText";
 
-function HeaderItem({ text, onPress }) {
+function HeaderItem(props) {
   return (
     <TouchableHighlight
-      underlayColor="#d9d9d9"
-      onPress={onPress}
+      underlayColor="blue"
+      onPress={props.onPress}
       style={styles.container}
+      {...props}
     >
-      <MyText>{text}</MyText>
+      <MyText style={styles.text}>{props.text}</MyText>
     </TouchableHighlight>
   );
 }
@@ -17,6 +18,9 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     padding: 10,
+  },
+  text: {
+    color: "white",
   },
 });
 

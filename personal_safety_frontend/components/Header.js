@@ -31,6 +31,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-around",
+    backgroundColor: "black",
+    borderBottomWidth: 1,
+    borderColor: "grey",
+    padding: 10,
   },
 });
 

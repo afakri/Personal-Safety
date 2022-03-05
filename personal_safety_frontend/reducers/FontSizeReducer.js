@@ -1,5 +1,5 @@
 const initialState = {
-  size: 23,
+  size: 25,
 };
 
 function CheckedReducer(state = initialState, action) {

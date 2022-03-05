@@ -4,34 +4,18 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { setChecked } from "../actions/Checked";
 import MyText from "./MyText";
-import axios from "axios";
 
 function Main(props) {
   useEffect(() => {
-    const sendPush = async () => {
-      let res = await axios.get(
-        "https://notification-app.loca.lt/api/v1/reminder/0631005047"
-      );
-      console.log("push notif sent");
-    };
-    if (props.checked) {
-      const timer = setTimeout(() => {
-        console.log("30sec has passed! checkin now");
-        sendPush()
-          .then(console.log("Notif sent"))
-          .catch((e) => console.log(e));
-        props.setChecked(false);
-      }, 30000);
-
-      return () => clearTimeout(timer);
+    if (!props.checked) {
+      const interval = setInterval(() => {
+        console.log("Not Checked in ");
+        if (props.checked) {
+          return () => clearInterval(interval);
+        }
+      }, 10000);
+      return () => clearInterval(interval);
     }
-    const interval = setInterval(() => {
-      console.log("Not Checked in ");
-      if (props.checked) {
-        return () => clearInterval(interval);
-      }
-    }, 10000);
-    return () => clearInterval(interval);
   }, [props.checked]);
 
   return (
@@ -51,11 +35,11 @@ function Main(props) {
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: "#d9d9d9",
     justifyContent: "flex-start",
     alignItems: "center",
     width: "100%",
     height: "100%",
+    marginTop: "25%",
   },
   container: {
     marginTop: 10,
@@ -65,14 +49,12 @@ const styles = StyleSheet.create({
   },
   title: {
     padding: 30,
+    color: "white",
   },
   description: {
     fontSize: 20,
     textAlign: "center",
-  },
-  checkin: {
-    backgroundColor: "blue",
-    fontSize: 40,
+    color: "white",
   },
 });
 

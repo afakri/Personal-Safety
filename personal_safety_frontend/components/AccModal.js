@@ -32,12 +32,17 @@ function AccModal() {
             style={[styles.button, styles.closeButton]}
             onPress={() => setOpen(false)}
           >
-            <MyText style={[styles.buttonText]}>Close</MyText>
+            <MyText style={[styles.buttonText]}>X</MyText>
           </Pressable>
         </BlurView>
       </Modal>
       <Pressable style={styles.accButton} onPress={() => setOpen(true)}>
-        <Icon name="universal-access" type="font-awesome" size={50} />
+        <Icon
+          name="universal-access"
+          type="font-awesome"
+          color="white"
+          size={50}
+        />
       </Pressable>
     </>
   );
@@ -55,7 +60,6 @@ const styles = StyleSheet.create({
     width: "80%",
 
     justifyContent: "center",
-    borderRadius: 40,
   },
   button: {
     backgroundColor: "black",
@@ -63,13 +67,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 10,
+    borderRadius: 30,
   },
   buttonText: { color: "white" },
   closeButton: {
     position: "absolute",
     bottom: "5%",
-    width: "30%",
+    width: 60,
+    height: 60,
+    borderRadius: 200,
   },
   accButton: {
     alignItems: "center",

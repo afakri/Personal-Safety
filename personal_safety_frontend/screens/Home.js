@@ -8,7 +8,7 @@ function Home({ navigation }) {
   const test = useStore();
   console.log(test.getState());
   return (
-    <Screen>
+    <Screen style={styles.container}>
       <Header navigation={navigation} />
       <Main />
     </Screen>
@@ -16,7 +16,10 @@ function Home({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: "black",
+    height: "100%",
+  },
 });
 
 export default Home;

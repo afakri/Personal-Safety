@@ -13,6 +13,17 @@ import { useForm, Controller } from "react-hook-form";
 function SignUp({ navigation }) {
   const EMAIL_REGEX =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const PHONE_REGEX = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+  const formatMobileNumber = (text) => {
+    var cleaned = ("" + text).replace(/\D/g, "");
+    var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+      var number = ["(", match[2], ") ", match[3], "-", match[4]].join("");
+      return number;
+    }
+    return text;
+  };
+
   const {
     handleSubmit,
     control,
@@ -92,15 +103,20 @@ function SignUp({ navigation }) {
             control={control}
             rules={{
               required: { value: true, message: "Phone number is required!" },
+              pattern: {
+                value: PHONE_REGEX,
+                message: "Not a valid phone number",
+              },
             }}
             render={({ field: { onChange, value } }) => (
               <Input
                 error={errors.PhoneNumber}
                 errorText={errors?.PhoneNumber?.message}
-                onChangeText={(text) => onChange(text)}
+                onChangeText={(text) => onChange(formatMobileNumber(text))}
                 value={value}
-                placeholder="(XXX)-XXX-XXX"
+                placeholder="(XXX)-XXX-XXXX"
                 title="Phone Number"
+                maxLength={10}
               />
             )}
           />
@@ -120,10 +136,13 @@ function SignUp({ navigation }) {
               <Input
                 error={errors.Password}
                 errorText={errors?.Password?.message}
-                onChangeText={(text) => onChange(text)}
+                onChangeText={(text) => {
+                  onChange(text);
+                }}
                 value={value}
                 placeholder="Enter your password"
                 title="Password"
+                secureTextEntry={true}
               />
             )}
           />

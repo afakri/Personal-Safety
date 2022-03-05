@@ -69,6 +69,7 @@ function SignIn({ navigation }) {
                 value={value}
                 placeholder="Enter your password"
                 title="Password"
+                secureTextEntry={true}
               />
             )}
           />
