@@ -1,10 +1,6 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      require "faraday"
-      require "faraday/net_http"
-      Faraday.default_adapter = :net_http
-
       def index
         users = User.all
         render json: UserSerializer.new(users, options).serializable_hash.to_json
@@ -48,29 +44,21 @@ module Api
 
       def schedule_job
         user = User.find_by(phone_number: params[:phone_number])
-        token = user.token
+        SendNotificationJob.set(wait: 1.minute).perform_later(user)
 
-        conn = Faraday.new
-        res = conn.post("https://exp.host/--/api/v2/push/send",
-                        {
-          "to" => "ExponentPushToken[rIxdIkGUyxec2zoZAB6JEd]",
-          "sound" => "default",
-          "title" => "Check in",
-          "body" => "It's time to check in!",
-          "data" => { "someData" => "goes here" },
-        }.to_json, {
-          "Accept" => "application/json",
-          "Accept-encoding" => "gzip, deflate",
-          "Content-Type" => "application/json",
-        })
+        render json: "Job scheduled"
+      end
 
-        render json: res
+      def send_emergency_email
+        @user = User.find_by(phone_number: params[:phone_number])
+        EmergencyMailer.with(user: @user).new_emergency_email.deliver_later
+        render json: "Email was sent successfully "
       end
 
       private
 
       def user_params
-        params.require(:user).permit(:first_name, :last_name, :email, :password, :token, :phone_number)
+        params.require(:user).permit(:first_name, :last_name, :email, :password, :token, :phone_number, :emergency_contacts)
       end
 
       def options

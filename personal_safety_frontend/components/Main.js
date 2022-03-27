@@ -1,34 +1,42 @@
 import { View, StyleSheet } from "react-native";
 import Button from "./Button";
 import { useEffect } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setChecked } from "../actions/Checked";
 import MyText from "./MyText";
-
+import { Unauthenticate } from "../actions/Authentication";
 function Main(props) {
+  const checked = useSelector((state) => state.checked.val);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if (!props.checked) {
+    if (!checked) {
       const interval = setInterval(() => {
         console.log("Not Checked in ");
-        if (props.checked) {
+        if (checked) {
           return () => clearInterval(interval);
         }
       }, 10000);
       return () => clearInterval(interval);
     }
-  }, [props.checked]);
+    const interval2 = setTimeout(() => {
+      dispatch(setChecked(false));
+      dispatch(Unauthenticate());
+      console.log("Time to Checkin");
+    }, 60000);
+  }, [checked]);
 
   return (
     <View style={styles.page}>
       <View style={styles.container}>
         <MyText style={styles.title}>Welcome, Sussan! </MyText>
         <MyText style={styles.description}>
-          {props.checked
+          {checked
             ? `You are checked-in.\nWe will keep you posted!`
             : `You have not yet checked-in today. \nTap the button to checkin now!`}
         </MyText>
       </View>
-      {props.checked ? <></> : <Button text="Check in" />}
+      {checked ? <></> : <Button text="Check in" />}
     </View>
   );
 }
@@ -58,16 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state) {
-  return {
-    checked: state.checked.val,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    setChecked: (checked) => dispatch(setChecked(checked)),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

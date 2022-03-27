@@ -1,31 +1,43 @@
 import { TouchableHighlight, Text, StyleSheet } from "react-native";
-import { connect } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import { setChecked } from "../actions/Checked";
 import MyText from "./MyText";
 import axios from "axios";
-
+import {
+  getCompatibility,
+  getSavedBiometrics,
+  authenticate,
+  Unauthenticate,
+} from "../actions/Authentication";
 function Button(props) {
+  const dispatch = useDispatch();
+  const checked = useSelector((state) => state.checked.val);
+  const authenticated = useSelector(
+    (state) => state.authentication.authentication
+  );
   const sendPush = async () => {
     let res = await axios.get(
       "https://notification-app.loca.lt/api/v1/reminder/0631005047"
     );
-    console.log("push notif sent");
+    console.log("push notif sch");
   };
   return (
     <TouchableHighlight
       style={styles.container}
       underlayColor="#0533g7"
       onPress={() => {
-        props.setChecked(true);
-        const timer = setTimeout(() => {
-          console.log("30sec has passed! checkin now");
+        dispatch(getCompatibility());
+        dispatch(getSavedBiometrics());
+        dispatch(authenticate());
+
+        if (authenticated.success) {
+          dispatch(setChecked(true));
           sendPush()
             .then(console.log("Notif sent"))
             .catch((e) => console.log(e));
-          props.setChecked(false);
-        }, 20000);
-
-        return () => clearTimeout(timer);
+        } else {
+          console.log("Authentication failed ");
+        }
       }}
     >
       <MyText style={styles.text}>{props.text}</MyText>
@@ -47,9 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    setChecked: (checked) => dispatch(setChecked(checked)),
-  };
-}
-export default connect(null, mapDispatchToProps)(Button);
+export default Button;

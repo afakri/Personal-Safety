@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  serialize :emergency_contacts, Array
 
   # - RELATIONS
   has_many :friendships, dependent: :destroy
